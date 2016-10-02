@@ -1,0 +1,6 @@
+#ignore these
+/*
+
+#exclude these
+!/.gitignore
+!/*.hs
