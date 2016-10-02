@@ -3,4 +3,4 @@
 
 #exclude these
 !/.gitignore
-!/*.hs
+!/imageprocess.hs

@@ -5,6 +5,7 @@ type OutputImage = Image PixelRGB8
 type InputImage = Image PixelRGB8
 type Constant = Float
 type LogBase = Float
+type GammaConstant = Float
 
 negatePixel :: PixelRGB8 -> PixelRGB8
 negatePixel (PixelRGB8 r g b) = PixelRGB8 (255-r) (255-g) (255-b)
@@ -12,10 +13,11 @@ negatePixel (PixelRGB8 r g b) = PixelRGB8 (255-r) (255-g) (255-b)
 negateImage :: InputImage -> OutputImage
 negateImage x = pixelMap negatePixel x
 
-logTransformImage :: (Floating a, RealFrac a) => Image PixelRGB8 -> Constant -> LogBase -> Image PixelRGB8
+logTransformImage :: (Floating a, RealFrac a) => InputImage -> Constant -> LogBase -> OutputImage
 logTransformImage x c b = pixelMap (\(PixelRGB8 r g b) -> PixelRGB8 (lg (fromIntegral r)) (lg (fromIntegral g)) (lg (fromIntegral b))) x
                           where lg y =  floor (c * (logBase b (1+y))) :: Pixel8
 
+gammaTransformImage :: (Floating a, RealFrac a) => InputImage -> Constant -> GammaConstant -> OutputImage
 gammaTransformImage x c g =  pixelMap (\(PixelRGB8 r g b) -> PixelRGB8 (gamma (fromIntegral r)) (gamma (fromIntegral g)) (gamma (fromIntegral b))) x
                              where gamma p =  floor (c * (p**g)) :: Pixel8
                                 
