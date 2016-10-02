@@ -4,3 +4,4 @@
 #exclude these
 !/.gitignore
 !/imageprocess.hs
+!/README.md
